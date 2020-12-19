@@ -31,9 +31,9 @@
               v-model="$vuetify.theme.dark"
               inset
               label="深色模式"
-              persistent-hint
           ></v-switch>
         </v-list-item>
+
         <v-list-item v-for="item in items" :key="item.title" link>
           <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
@@ -94,9 +94,11 @@ export default {
   data() {
     return {
       items: [
-        {title: 'Dashboard', icon: 'mdi-view-dashboard'},
-        {title: 'Photos', icon: 'mdi-image'},
-        {title: 'About', icon: 'mdi-help-box'},
+        {title: '登录', icon: 'mdi-login'},
+        {title: '仪表盘', icon: 'mdi-view-dashboard'},
+        {title: '实时直播', icon: 'mdi-video-wireless-outline'},
+        {title: '相机', icon: 'mdi-camera'},
+        {title: '退出', icon: 'mdi-logout'},
       ],
       drawer: null
     }
