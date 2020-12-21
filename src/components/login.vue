@@ -18,7 +18,7 @@
 
 <script>
 export default {
-  name: 'contents',
+  name: 'login',
 
   data: () => ({}),
 

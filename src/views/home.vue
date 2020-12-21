@@ -85,27 +85,27 @@
 
     <v-main>
 
-      <contents/>
+      <login/>
 
     </v-main>
 
-    <v-footer
-        padless
-        app
-    >
-      <v-divider></v-divider>
-
-      <v-card-text>
-        {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
-      </v-card-text>
-
+    <v-footer padless>
+      <v-col
+          class="primary lighten-2 py-4 text-center white--text"
+          cols="12"
+      >
+        {{ new Date().getFullYear() }} — <strong>windfallw</strong>
+        <v-btn icon href="https://github.com/windfallw/Cross-APP-Final-Design" target="_blank">
+          <v-icon>mdi-github-face</v-icon>
+        </v-btn>
+      </v-col>
     </v-footer>
 
   </v-app>
 </template>
 
 <script>
-import contents from '@/components/contents';
+import login from '@/components/login';
 
 export default {
   name: 'home',
@@ -128,7 +128,7 @@ export default {
   }),
 
   components: {
-    contents,
+    login,
   },
 
   methods: {},

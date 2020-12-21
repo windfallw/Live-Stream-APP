@@ -5,9 +5,6 @@ import zhHans from 'vuetify/lib/locale/zh-Hans';
 Vue.use(Vuetify);
 
 export default new Vuetify({
-    icons: {
-        iconfont: 'mdi', // 'mdi' || 'mdiSvg' || 'md' || 'fa' || 'fa4' || 'faSvg'
-    },
     theme: {
         options: {
             customProperties: true,
