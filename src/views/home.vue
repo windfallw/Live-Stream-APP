@@ -47,6 +47,7 @@
             v-for="item in items"
             :key="item.title"
             link
+            href="about"
         >
           <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>

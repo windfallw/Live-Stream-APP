@@ -12,6 +12,7 @@ const About = {template: '<p>about page</p>'}
 
 const routes = {
     '/': Home,
+    '/index.html': Home,
     '/about': About
 }
 
