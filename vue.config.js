@@ -3,8 +3,12 @@ module.exports = {
         "vuetify"
     ],
 
-    outputDir: '../testCordova/www',
-    publicPath: './',
+    outputDir: './src-cordova/www',
+    publicPath: '',
     assetsDir: 'static',
-    runtimeCompiler: true
+    runtimeCompiler: true,
+
+    pluginOptions: {
+        cordovaPath: 'src-cordova'
+    }
 }
