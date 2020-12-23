@@ -1,103 +1,92 @@
 <template>
 
-  <v-row justify="center">
-    <v-dialog
-        v-model="dialog"
-        persistent
-        max-width="600px"
-    >
+  <v-dialog
+      v-model="dialog"
+      persistent
+      max-width="600px"
+  >
+    <v-card>
 
-      <template v-slot:activator="{ on, attrs }">
+      <v-card-title>
+        <span class="headline">User Profile</span>
+      </v-card-title>
+      <v-card-text>
+        <v-container>
+          <v-row>
+
+            <v-col
+                cols="12"
+                sm="6"
+                md="4"
+            >
+              <v-text-field
+                  label="Legal middle name"
+                  hint="example of helper text only on focus"
+              ></v-text-field>
+            </v-col>
+            <v-col
+                cols="12"
+                sm="6"
+                md="4"
+            >
+              <v-text-field
+                  label="Legal last name*"
+                  hint="example of persistent helper text"
+                  persistent-hint
+                  required
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12">
+              <v-text-field
+                  label="Email*"
+                  required
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12">
+              <v-text-field
+                  label="Password*"
+                  type="password"
+                  required
+              ></v-text-field>
+            </v-col>
+
+
+          </v-row>
+        </v-container>
+        <small>*indicates required field</small>
+      </v-card-text>
+
+      <v-card-actions>
+        <v-spacer></v-spacer>
         <v-btn
-            color="primary"
-            dark
-            v-bind="attrs"
-            v-on="on"
+            color="blue darken-1"
+            text
+            v-on:click="$emit('login-dialog',false)"
         >
-          Open Dialog
+          Close
         </v-btn>
-      </template>
+        <v-btn
+            color="blue darken-1"
+            text
+            v-on:click="$emit('login-dialog',false)"
+        >
+          Save
+        </v-btn>
+      </v-card-actions>
 
-      <v-card>
-        <v-card-title>
-          <span class="headline">User Profile</span>
-        </v-card-title>
-        <v-card-text>
-          <v-container>
-            <v-row>
-
-              <v-col
-                  cols="12"
-                  sm="6"
-                  md="4"
-              >
-                <v-text-field
-                    label="Legal middle name"
-                    hint="example of helper text only on focus"
-                ></v-text-field>
-              </v-col>
-              <v-col
-                  cols="12"
-                  sm="6"
-                  md="4"
-              >
-                <v-text-field
-                    label="Legal last name*"
-                    hint="example of persistent helper text"
-                    persistent-hint
-                    required
-                ></v-text-field>
-              </v-col>
-              <v-col cols="12">
-                <v-text-field
-                    label="Email*"
-                    required
-                ></v-text-field>
-              </v-col>
-              <v-col cols="12">
-                <v-text-field
-                    label="Password*"
-                    type="password"
-                    required
-                ></v-text-field>
-              </v-col>
-
-
-            </v-row>
-          </v-container>
-          <small>*indicates required field</small>
-        </v-card-text>
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-              color="blue darken-1"
-              text
-              @click="dialog = false"
-          >
-            Close
-          </v-btn>
-          <v-btn
-              color="blue darken-1"
-              text
-              @click="dialog = false"
-          >
-            Save
-          </v-btn>
-        </v-card-actions>
-
-      </v-card>
-
-    </v-dialog>
-  </v-row>
+    </v-card>
+  </v-dialog>
 
 </template>
 
 <script>
 export default {
-  data: () => ({
-    dialog: false,
-  }),
+  props: ['dialog'],
+  data: () => ({}),
+  mounted: function ()
+  {
+  },
+  methods: {}
 }
 
 </script>
