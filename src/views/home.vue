@@ -101,17 +101,7 @@
 
     </v-main>
 
-    <v-footer padless>
-      <v-col
-          class="lighten-2 text-center py-0"
-          cols="12"
-      >
-        {{ new Date().getFullYear() }} — <strong>windfallw</strong>
-        <v-btn icon href="https://github.com/windfallw/Cross-APP-Final-Design" target="_blank">
-          <v-icon>mdi-github-face</v-icon>
-        </v-btn>
-      </v-col>
-    </v-footer>
+    <app-footer/>
 
     <app-login
         v-bind:dialog="dialog"
@@ -122,6 +112,7 @@
 </template>
 
 <script>
+import footer from "@/components/footer";
 import login from '@/components/login';
 // import axios from 'axios'
 
@@ -145,7 +136,8 @@ export default {
   }),
 
   components: {
-    'app-login': login
+    'app-login': login,
+    'app-footer': footer
   },
 
   methods: {},
