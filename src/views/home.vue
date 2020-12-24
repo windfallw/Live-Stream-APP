@@ -147,24 +147,11 @@ export default {
   {
     document.addEventListener("deviceready", onDeviceReady, false);
 
-    function onSuccess(imageURI)
-    {
-      var image = document.getElementById('myImage');
-      image.src = imageURI;
-    }
-
-    function onFail(message)
-    {
-      alert('Failed because: ' + message);
-    }
-
     function onDeviceReady()
     {
-      videoStreamer.streamRTMP('rtmp://my-iot.site/live/app')
-      // console.log(navigator.camera);
-      // navigator.camera.getPicture(onSuccess, onFail, {
-      //   quality: 50,
-      // });
+      // videoStreamer.streamRTMP('rtmp://my-iot.site/live/app')
+      console.log(navigator.camera)
+      console.log(videoStreamer)
     }
 
   },
