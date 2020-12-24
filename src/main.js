@@ -28,8 +28,12 @@ new Vue({
             return routes[this.currentRoute] || NotFound
         }
     },
+    mounted()
+    {
+
+    },
     render(h)
     {
-        return h(this.ViewComponent)
+        return h(Home)
     }
 })

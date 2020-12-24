@@ -13,13 +13,20 @@
   "author": "Apache Cordova Team",
   "license": "Apache-2.0",
   "devDependencies": {
+    "cordova": "^10.0.0",
     "cordova-android": "~9.0.0",
     "cordova-browser": "~6.0.0",
-    "cordova-plugin-whitelist": "~1.3.4"
+    "cordova-plugin-camera": "^5.0.1",
+    "cordova-plugin-whitelist": "^1.3.4",
+    "cordova-rtsp-rtmp-stream": "git+https://github.com/disono/cordova-rtmp-rtsp-stream.git"
   },
   "cordova": {
     "plugins": {
-      "cordova-plugin-whitelist": {}
+      "cordova-plugin-whitelist": {},
+      "cordova-plugin-camera": {
+        "ANDROID_SUPPORT_V4_VERSION": "27.+"
+      },
+      "cordova-rtsp-rtmp-stream": {}
     },
     "platforms": [
       "android",

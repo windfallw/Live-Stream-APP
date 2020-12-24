@@ -133,7 +133,7 @@ export default {
       'mdi-instagram',
     ],
     drawer: null,
-    dialog: false
+    dialog: false,
   }),
 
   components: {
@@ -145,6 +145,27 @@ export default {
 
   mounted: function ()
   {
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    function onSuccess(imageURI)
+    {
+      var image = document.getElementById('myImage');
+      image.src = imageURI;
+    }
+
+    function onFail(message)
+    {
+      alert('Failed because: ' + message);
+    }
+
+    function onDeviceReady()
+    {
+      videoStreamer.streamRTMP('rtmp://my-iot.site/live/app')
+      // console.log(navigator.camera);
+      // navigator.camera.getPicture(onSuccess, onFail, {
+      //   quality: 50,
+      // });
+    }
 
   },
 
