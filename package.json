@@ -30,8 +30,10 @@
     "cordova-rtsp-rtmp-stream": "^0.1.24",
     "core-js": "^3.6.5",
     "roboto-fontface": "*",
+    "video.js": "^7.10.2",
     "vue": "^2.6.11",
     "vue-router": "^3.4.9",
+    "vue-videojs7": "^0.1.5",
     "vuetify": "^2.2.11"
   },
   "devDependencies": {

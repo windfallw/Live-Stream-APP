@@ -43,11 +43,19 @@
           </v-list-item-content>
         </v-list-item>
 
+        <v-list-item link v-on:click="display">
+          <v-list-item-icon>
+            <v-icon>mdi-video-wireless-outline</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>发起直播</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
         <v-list-item
             v-for="item in items"
             :key="item.title"
             link
-            href="about"
         >
           <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
@@ -99,7 +107,7 @@
     </v-app-bar>
 
     <v-main class="d-flex align-content-center flex-wrap-reverse">
-
+      <app-live/>
     </v-main>
 
     <app-footer/>
@@ -115,45 +123,56 @@
 <script>
 import footer from "@/components/footer";
 import login from '@/components/login';
+import video from "@/components/video";
 // import axios from 'axios'
 
 export default {
   name: 'home',
-  data: () => ({
-    items: [
-      {title: '仪表盘', icon: 'mdi-view-dashboard', href: ''},
-      {title: '实时直播', icon: 'mdi-video-wireless-outline', href: ''},
-      {title: '相机', icon: 'mdi-camera', href: ''},
-      {title: '退出', icon: 'mdi-logout', href: ''},
-    ],
-    icons: [
-      'mdi-facebook',
-      'mdi-twitter',
-      'mdi-linkedin',
-      'mdi-instagram',
-    ],
-    drawer: null,
-    dialog: false,
-  }),
+  data: function ()
+  {
+    return {
+      items: [
+        {title: '仪表盘', icon: 'mdi-view-dashboard', href: ''},
+        {title: '相机', icon: 'mdi-camera', href: ''},
+        {title: '退出', icon: 'mdi-logout', href: ''},
+      ],
+      icons: [
+        'mdi-facebook',
+        'mdi-twitter',
+        'mdi-linkedin',
+        'mdi-instagram',
+      ],
+      drawer: null,
+      dialog: false,
+      cordova_ready: false
+    }
+  },
 
   components: {
     'app-login': login,
-    'app-footer': footer
+    'app-footer': footer,
+    'app-live': video
   },
 
-  methods: {},
-
-  mounted: function ()
-  {
-    document.addEventListener("deviceready", onDeviceReady, false);
-
-    function onDeviceReady()
+  methods: {
+    display: function ()
     {
-      // videoStreamer.streamRTMP('rtmp://my-iot.site/live/app')
+      if (this.cordova_ready)
+        videoStreamer.streamRTMP('rtmp://my-iot.site/live/app')
+      else console.log('当前设备不支持')
+    },
+    onDeviceReady: function ()
+    {
+      this.cordova_ready = true
       console.log(navigator.camera)
       console.log(videoStreamer)
     }
 
+  },
+
+  mounted: function ()
+  {
+    document.addEventListener("deviceready", this.onDeviceReady, false);
   },
 
 };
