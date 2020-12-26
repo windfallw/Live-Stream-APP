@@ -29,6 +29,7 @@
     "cordova-plugin-camera": "^5.0.1",
     "cordova-rtsp-rtmp-stream": "^0.1.24",
     "core-js": "^3.6.5",
+    "material-design-icons-iconfont": "^6.1.0",
     "roboto-fontface": "*",
     "video.js": "^7.10.2",
     "vue": "^2.6.11",

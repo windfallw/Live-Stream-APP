@@ -35,7 +35,8 @@
     </v-list-item>
 
     <v-list-item
-        link v-on:click="display"
+        link
+        v-on:click="display"
     >
       <v-list-item-icon>
         <v-icon>mdi-video-wireless-outline</v-icon>
@@ -46,12 +47,15 @@
     </v-list-item>
 
 
-    <v-list-item link>
+    <v-list-item
+        link
+        v-on:click="getPicture"
+    >
       <v-list-item-icon>
         <v-icon>mdi-camera</v-icon>
       </v-list-item-icon>
       <v-list-item-content>
-        <v-list-item-title>相机</v-list-item-title>
+        <v-list-item-title>更换背景</v-list-item-title>
       </v-list-item-content>
     </v-list-item>
 
@@ -70,7 +74,7 @@
 
 <script>
 export default {
-  props: ['display', 'cordova_ready', 'showSnackBar'],
+  props: ['display', 'cordova_ready', 'showSnackBar', 'getPicture'],
   data: function ()
   {
     return {}

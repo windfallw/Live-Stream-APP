@@ -39,6 +39,7 @@
       <app-list
           v-bind:display="display"
           v-bind:showSnackBar="showSnackBar"
+          v-bind:get-picture="getPicture"
           v-bind:cordova_ready="cordova_ready"
           v-on:login-dialog="loginDialog=$event"
           v-on:register-dialog="registerDialog=$event"
@@ -52,7 +53,7 @@
         prominent
         shrink-on-scroll
         fade-img-on-scroll
-        src="https://picsum.photos/1920/1080?random"
+        v-bind:src="current_img"
         app
     >
 
@@ -73,7 +74,7 @@
           icon
           v-on:click="getUser"
       >
-        <v-icon>mdi-reload</v-icon>
+        <v-icon>mdi-refresh</v-icon>
       </v-btn>
 
       <v-btn
@@ -96,7 +97,6 @@
     <v-main>
       <v-container fluid>
         <v-row dense>
-
           <app-live
               video-src="https://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8"
               title="M3U8测试频道"
@@ -112,11 +112,8 @@
               v-bind:video-src="item[1]"
               v-bind:title="item[0]"
           />
-
-
         </v-row>
       </v-container>
-
     </v-main>
 
     <app-footer/>
@@ -174,7 +171,8 @@ export default {
       cordova_ready: false,
       token: 'XeuhrQVN2NhadNFcmwClVXrB0pEGkIuH',//为了暂时的保护服务器的接口而设置的，token不对服务器返回403
       snackConf: {timeout: 5000, txt: '', snackbar: false},
-      allUser: {}
+      allUser: {},
+      current_img: 'https://picsum.photos/1920/1080?random'
     }
   },
 
@@ -185,7 +183,7 @@ export default {
     'app-login': login,
     'app-register': register,
     'app-snack': snack,
-    'app-logout': logout
+    'app-logout': logout,
   },
 
   methods: {
@@ -271,7 +269,6 @@ export default {
           .then(function (res)
           {
             that.allUser = res.data
-
             that.showSnackBar(res.data)
           })
           .catch(function (err)
@@ -293,25 +290,25 @@ export default {
     {
       if (this.cordova_ready)
       {
-        navigator.camera.getPicture(onSuccess, onFail, {
+        navigator.camera.getPicture(this.onSuccess, this.onFail, {
           quality: 25,
           destinationType: Camera.DestinationType.DATA_URL
         });
 
-        function onSuccess(imageData)
-        {
-          var image = document.getElementById('myImage');
-          image.src = "data:image/jpeg;base64," + imageData;
-        }
-
-        function onFail(message)
-        {
-          alert('Failed because: ' + message);
-        }
-
       }
       else this.showSnackBar('当前平台不支持')
-    }
+    },
+
+    onSuccess: function (imageData)
+    {
+      this.current_img = "data:image/jpeg;base64," + imageData;
+      this.showSnackBar('背景图更换成功')
+    },
+
+    onFail: function (message)
+    {
+      this.showSnackBar(String(message))
+    },
 
   },
 
