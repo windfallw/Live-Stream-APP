@@ -81,6 +81,7 @@
     <app-login
         v-bind:dialog="loginDialog"
         v-on:login-dialog="loginDialog=$event"
+        v-on:register="signIn($event)"
     />
 
     <app-register
@@ -156,6 +157,7 @@ export default {
 
     signIn: function (user, pd)
     {
+      let that = this
       let formData = new FormData();
       formData.append('name', user)
       formData.append('password', pd)
@@ -168,14 +170,41 @@ export default {
           .then(function (res)
           {
             //handle success
-            console.log(res.data);
+            that.showSnackBar(res.data);
           })
           .catch(function (err)
           {
             //handle error
             console.log(err);
-          });
+            that.showSnackBar('网络出问题了')
+          })
     },
+
+    signUp: function (user, pd)
+    {
+      let that = this
+      axios({
+        method: 'post',
+        url: this.signupUrl,
+        data: {
+          name: user,
+          password: pd
+        }
+      })
+          .then(function (res)
+          {
+            //handle success
+            that.showSnackBar(res.data);
+          })
+          .catch(function (err)
+          {
+            //handle error
+            console.log(err);
+            that.showSnackBar('网络出问题了')
+          })
+
+
+    }
 
 
   },
@@ -183,11 +212,9 @@ export default {
   mounted: function ()
   {
     document.addEventListener("deviceready", this.onDeviceReady, false);
-    this.signIn('test', '123')
   },
 
   computed: {
-    //https://www.my-iot.site/app/user/login.php
     pushUrl: function ()
     {
       return 'rtmp://' + this.ip + '/live/' + this.user

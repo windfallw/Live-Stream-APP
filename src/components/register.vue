@@ -16,7 +16,7 @@
           <v-row>
             <v-col cols="12">
               <v-text-field
-                  label="邮箱*"
+                  label="用户名*"
                   required
               ></v-text-field>
             </v-col>
