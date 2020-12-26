@@ -57,10 +57,10 @@
 
     <v-list-item link v-on:click="exit">
       <v-list-item-icon>
-        <v-icon>mdi-logout</v-icon>
+        <v-icon>mdi-logout-variant</v-icon>
       </v-list-item-icon>
       <v-list-item-content>
-        <v-list-item-title>退出</v-list-item-title>
+        <v-list-item-title>退出应用</v-list-item-title>
       </v-list-item-content>
     </v-list-item>
 

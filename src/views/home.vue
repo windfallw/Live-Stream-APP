@@ -5,12 +5,24 @@
 
       <v-list-item>
 
-        <v-list-item-avatar color="accent" v-on:click="loginDialog = true">
-          <span class="white--text headline"></span>
+        <v-list-item-avatar color="accent">
+          <span
+              class="white--text headline"
+              v-if="isLogin"
+          >{{ user }}}</span>
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title class="title">
+          <v-list-item-title
+              class="title"
+              v-if="isLogin"
+          >
+            {{ user }}
+          </v-list-item-title>
+          <v-list-item-title
+              class="title"
+              v-else
+          >
             未登录
           </v-list-item-title>
 
@@ -57,7 +69,18 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn icon v-on:click="loginDialog = true">
+      <v-btn
+          icon
+          v-if="isLogin"
+          v-on:click="logoutDialog=true"
+      >
+        <v-icon>mdi-logout</v-icon>
+      </v-btn>
+
+      <v-btn
+          icon v-on:click="loginDialog = true"
+          v-else
+      >
         <v-icon>mdi-account</v-icon>
       </v-btn>
 
@@ -79,7 +102,9 @@
     <app-footer/>
 
     <app-login
+        v-bind:showSnackBar="showSnackBar"
         v-bind:dialog="loginDialog"
+        v-bind:islogin="isLogin"
         v-on:login-dialog="loginDialog=$event"
         v-on:login="signIn($event)"
     />
@@ -94,6 +119,13 @@
         v-bind:conf="snackConf"
     />
 
+    <app-logout
+        v-bind:dialog="logoutDialog"
+        v-on:logout-dialog="logoutDialog=$event"
+        v-on:logout="logout"
+    />
+
+
   </v-app>
 </template>
 
@@ -105,6 +137,7 @@ import footer from "@/components/footer";
 import login from '@/components/login';
 import register from "@/components/register";
 import snack from "@/components/snack";
+import logout from "@/components/logout";
 
 export default {
   name: 'home',
@@ -116,10 +149,11 @@ export default {
       drawer: null,
       isLogin: false,
       loginDialog: false,
+      logoutDialog: false,
       registerDialog: false,
       cordova_ready: false,
       token: 'XeuhrQVN2NhadNFcmwClVXrB0pEGkIuH',
-      snackConf: {timeout: 1500, txt: '', snackbar: false}
+      snackConf: {timeout: 3000, txt: '', snackbar: false}
     }
   },
 
@@ -130,6 +164,7 @@ export default {
     'app-login': login,
     'app-register': register,
     'app-snack': snack,
+    'app-logout': logout
   },
 
   methods: {
@@ -172,12 +207,14 @@ export default {
           {
             //handle success
             that.showSnackBar(res.data);
+            that.isLogin = true
+            that.user = arg[0]
           })
           .catch(function (err)
           {
             //handle error
             console.log(err);
-            that.showSnackBar('网络出问题了')
+            that.showSnackBar(String(err))
           })
     },
 
@@ -187,26 +224,31 @@ export default {
       axios({
         method: 'post',
         url: this.signupUrl,
-        data: {
+        data: JSON.stringify({
           name: arg[0],
           password: arg[1],
           token: this.token
-        }
+        })
       })
           .then(function (res)
           {
             //handle success
-            console.log(res.data);
             that.showSnackBar(res.data);
           })
           .catch(function (err)
           {
             //handle error
             console.log(err);
-            that.showSnackBar('网络出问题了')
+            that.showSnackBar(String(err))
           })
-    }
+    },
 
+    logout: function ()
+    {
+      this.isLogin = false
+      this.user = 'app'
+      this.showSnackBar('已退出')
+    }
 
   },
 

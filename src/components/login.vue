@@ -66,7 +66,7 @@
 
 <script>
 export default {
-  props: ['dialog'],
+  props: ['dialog', 'islogin', 'showSnackBar'],
   data: function ()
   {
     return {
@@ -90,9 +90,13 @@ export default {
   methods: {
     login()
     {
-      this.$emit('login', [this.name, this.password])
-      this.$emit('login-dialog', false)
-      this.reset()
+      if (this.islogin) this.showSnackBar('你已经登录过啦，请先退出登录')
+      else
+      {
+        this.$emit('login', [this.name, this.password])
+        this.$emit('login-dialog', false)
+        this.reset()
+      }
     },
     reset()
     {
