@@ -26,6 +26,7 @@
 
       <app-list
           v-bind:display="display"
+          v-bind:showSnackBar="showSnackBar"
           v-bind:cordova_ready="cordova_ready"
           v-on:login-dialog="loginDialog=$event"
           v-on:register-dialog="registerDialog=$event"
@@ -72,6 +73,7 @@
 
         </v-row>
       </v-container>
+
     </v-main>
 
     <app-footer/>
@@ -86,16 +88,21 @@
         v-on:register-dialog="registerDialog=$event"
     />
 
+    <app-snack
+        v-bind:conf="snackConf"
+    />
+
   </v-app>
 </template>
 
 <script>
+import axios from 'axios'
+import list from "@/components/list";
+import video from "@/components/video";
+import footer from "@/components/footer";
 import login from '@/components/login';
 import register from "@/components/register";
-import footer from "@/components/footer";
-import video from "@/components/video";
-import list from "@/components/list";
-import axios from 'axios'
+import snack from "@/components/snack";
 
 export default {
   name: 'home',
@@ -109,24 +116,35 @@ export default {
       loginDialog: false,
       registerDialog: false,
       cordova_ready: false,
-      token: 'XeuhrQVN2NhadNFcmwClVXrB0pEGkIuH'
+      token: 'XeuhrQVN2NhadNFcmwClVXrB0pEGkIuH',
+      snackConf: {timeout: 1000, txt: '', snackbar: false}
     }
   },
 
   components: {
+    'app-list': list,
+    'app-live': video,
+    'app-footer': footer,
     'app-login': login,
     'app-register': register,
-    'app-footer': footer,
-    'app-live': video,
-    'app-list': list,
+    'app-snack': snack,
   },
 
   methods: {
+    showSnackBar: function (msg)
+    {
+      this.snackConf.txt = msg
+      this.snackConf.snackbar = true
+    },
+
     display: function ()
     {
       if (this.cordova_ready)
         videoStreamer.streamRTMP(this.pushUrl)
-      else console.log('当前设备不支持')
+      else
+      {
+        this.showSnackBar('当前设备不支持')
+      }
     },
 
     onDeviceReady: function ()
@@ -158,6 +176,7 @@ export default {
             console.log(err);
           });
     },
+
 
   },
 
