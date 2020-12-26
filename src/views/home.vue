@@ -81,12 +81,13 @@
     <app-login
         v-bind:dialog="loginDialog"
         v-on:login-dialog="loginDialog=$event"
-        v-on:register="signIn($event)"
+        v-on:login="signIn($event)"
     />
 
     <app-register
         v-bind:dialog="registerDialog"
         v-on:register-dialog="registerDialog=$event"
+        v-on:register="signUp($event)"
     />
 
     <app-snack
@@ -118,7 +119,7 @@ export default {
       registerDialog: false,
       cordova_ready: false,
       token: 'XeuhrQVN2NhadNFcmwClVXrB0pEGkIuH',
-      snackConf: {timeout: 1000, txt: '', snackbar: false}
+      snackConf: {timeout: 1500, txt: '', snackbar: false}
     }
   },
 
@@ -155,12 +156,12 @@ export default {
       console.log(videoStreamer)
     },
 
-    signIn: function (user, pd)
+    signIn: function (arg)
     {
       let that = this
       let formData = new FormData();
-      formData.append('name', user)
-      formData.append('password', pd)
+      formData.append('name', arg[0])
+      formData.append('password', arg[1])
       axios({
         method: 'post',
         url: this.loginUrl,
@@ -180,20 +181,22 @@ export default {
           })
     },
 
-    signUp: function (user, pd)
+    signUp: function (arg)
     {
       let that = this
       axios({
         method: 'post',
         url: this.signupUrl,
         data: {
-          name: user,
-          password: pd
+          name: arg[0],
+          password: arg[1],
+          token: this.token
         }
       })
           .then(function (res)
           {
             //handle success
+            console.log(res.data);
             that.showSnackBar(res.data);
           })
           .catch(function (err)
@@ -202,8 +205,6 @@ export default {
             console.log(err);
             that.showSnackBar('网络出问题了')
           })
-
-
     }
 
 
@@ -229,7 +230,7 @@ export default {
     },
     signupUrl: function ()
     {
-      return 'https://' + this.ip + 'app/user/signup.php'
+      return 'https://' + this.ip + '/app/user/signup.php'
     }
 
   },

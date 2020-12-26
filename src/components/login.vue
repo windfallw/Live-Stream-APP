@@ -53,7 +53,7 @@
               color="blue darken-1"
               text
               v-bind:disabled="!valid"
-              v-on:click="$emit('register',name,password);$emit('login-dialog',false)"
+              v-on:click="$emit('login',[name,password]);$emit('login-dialog',false)"
           >
             登录
           </v-btn>
