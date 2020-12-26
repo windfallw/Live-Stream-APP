@@ -103,12 +103,13 @@ export default {
   {
     return {
       ip: 'my-iot.site',
-      user: 'unsignin',
+      user: 'app',
       drawer: null,
       isLogin: false,
       loginDialog: false,
       registerDialog: false,
       cordova_ready: false,
+      token: 'XeuhrQVN2NhadNFcmwClVXrB0pEGkIuH'
     }
   },
 
@@ -124,38 +125,68 @@ export default {
     display: function ()
     {
       if (this.cordova_ready)
-        videoStreamer.streamRTMP('rtmp://my-iot.site/live/app')
+        videoStreamer.streamRTMP(this.pushUrl)
       else console.log('当前设备不支持')
     },
+
     onDeviceReady: function ()
     {
       this.cordova_ready = true
       console.log(navigator.camera)
       console.log(videoStreamer)
     },
-    signIn: function ()
-    {
 
-
-    }
-  },
-  computed: {
-    server: function ()
+    signIn: function (user, pd)
     {
-      return 'https://' + this.ip
+      let formData = new FormData();
+      formData.append('name', user)
+      formData.append('password', pd)
+      axios({
+        method: 'post',
+        url: this.loginUrl,
+        data: formData,
+        headers: {'Content-Type': 'multipart/form-data'}
+      })
+          .then(function (res)
+          {
+            //handle success
+            console.log(res.data);
+          })
+          .catch(function (err)
+          {
+            //handle error
+            console.log(err);
+          });
     },
-    liveUrl: function ()
-    {
-      return this.server + '/app/live/' + this.user
-    }
-
 
   },
+
   mounted: function ()
   {
     document.addEventListener("deviceready", this.onDeviceReady, false);
+    this.signIn('test', '123')
   },
 
+  computed: {
+    //https://www.my-iot.site/app/user/login.php
+    pushUrl: function ()
+    {
+      return 'rtmp://' + this.ip + '/live/' + this.user
+    },
+    liveUrl: function ()
+    {
+      return 'https://' + this.ip + '/app/live/' + this.user
+    },
+    loginUrl: function ()
+    {
+      return 'https://' + this.ip + '/app/user/login.php'
+    },
+    signupUrl: function ()
+    {
+      return 'https://' + this.ip + 'app/user/signup.php'
+    }
+
+  },
 };
 
 </script>

@@ -70,7 +70,7 @@ export default {
   {
     this.player = videojs(this.$refs.VideoPlayer, this.videoOptions, function onPlayerReady()
     {
-      console.log('onPlayerReady', this);
+      //console.log('onPlayerReady', this);
     })
   },
   beforeDestroy()
