@@ -201,7 +201,7 @@ export default {
         videoStreamer.streamRTMP(this.pushUrl)
       else
       {
-        this.showSnackBar('当前设备不支持')
+        this.showSnackBar('当前平台不支持')
       }
     },
 
@@ -287,6 +287,30 @@ export default {
       this.isLogin = false
       this.user = 'app'
       this.showSnackBar('已退出')
+    },
+
+    getPicture: function ()
+    {
+      if (this.cordova_ready)
+      {
+        navigator.camera.getPicture(onSuccess, onFail, {
+          quality: 25,
+          destinationType: Camera.DestinationType.DATA_URL
+        });
+
+        function onSuccess(imageData)
+        {
+          var image = document.getElementById('myImage');
+          image.src = "data:image/jpeg;base64," + imageData;
+        }
+
+        function onFail(message)
+        {
+          alert('Failed because: ' + message);
+        }
+
+      }
+      else this.showSnackBar('当前平台不支持')
     }
 
   },

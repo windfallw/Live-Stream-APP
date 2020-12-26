@@ -80,7 +80,7 @@ export default {
     {
       if (this.cordova_ready)
         navigator.app.exitApp();
-      else this.showSnackBar('当前设备不支持')
+      else this.showSnackBar('当前平台不支持')
     }
   }
 }
