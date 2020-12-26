@@ -12,7 +12,6 @@ require('video.js/dist/lang/zh-CN.js')
 
 
 import Home from './views/home'
-import NotFound from './views/404'
 
 Vue.config.productionTip = false
 

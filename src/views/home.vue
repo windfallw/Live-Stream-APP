@@ -90,9 +90,23 @@
       <v-container fluid>
         <v-row dense>
 
-          <app-live video-src="https://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8"/>
+          <app-live
+              video-src="https://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8"
+              title="M3U8测试频道"
+          />
 
-          <app-live video-src="https://my-iot.site/app/live/test.m3u8"/>
+          <app-live
+              v-bind:video-src="liveUrl"
+              v-if="isLogin"
+              title="我的直播间"
+          />
+
+          <app-live
+              v-bind:video-src="liveUrl"
+              v-else
+              title="服务器公共频道app"
+          />
+
 
         </v-row>
       </v-container>
@@ -152,7 +166,7 @@ export default {
       logoutDialog: false,
       registerDialog: false,
       cordova_ready: false,
-      token: 'XeuhrQVN2NhadNFcmwClVXrB0pEGkIuH',
+      token: 'XeuhrQVN2NhadNFcmwClVXrB0pEGkIuH',//为了暂时的保护服务器的接口而设置的，token不对服务器返回403
       snackConf: {timeout: 3000, txt: '', snackbar: false}
     }
   },
@@ -264,7 +278,7 @@ export default {
     },
     liveUrl: function ()
     {
-      return 'https://' + this.ip + '/app/live/' + this.user
+      return 'https://' + this.ip + '/app/live/' + this.user + '.m3u8'
     },
     loginUrl: function ()
     {

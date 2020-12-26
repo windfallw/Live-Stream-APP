@@ -7,7 +7,7 @@
       />
 
       <v-card-actions>
-        <v-card-title>app直播源</v-card-title>
+        <v-card-title>{{ title }}</v-card-title>
 
         <v-spacer></v-spacer>
 
@@ -32,7 +32,7 @@
 export default {
   name: "VideoPlayer",
   components: {},
-  props: ['videoSrc'],
+  props: ['videoSrc', 'title'],
   data()
   {
     return {
