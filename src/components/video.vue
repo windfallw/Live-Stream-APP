@@ -7,17 +7,17 @@
       />
 
       <v-card-actions>
-        <v-card-title>{{ title }}</v-card-title>
+        <v-card-title>{{ title + '直播间' }}</v-card-title>
 
         <v-spacer></v-spacer>
 
-        <v-btn icon>
-          <v-icon>mdi-heart</v-icon>
-        </v-btn>
+        <!--        <v-btn icon>-->
+        <!--          <v-icon>mdi-heart</v-icon>-->
+        <!--        </v-btn>-->
 
-        <v-btn icon>
-          <v-icon>mdi-bookmark</v-icon>
-        </v-btn>
+        <!--        <v-btn icon>-->
+        <!--          <v-icon>mdi-bookmark</v-icon>-->
+        <!--        </v-btn>-->
 
         <v-btn icon v-on:click="videoReload">
           <v-icon>mdi-reload</v-icon>

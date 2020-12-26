@@ -71,6 +71,13 @@
 
       <v-btn
           icon
+          v-on:click="getUser"
+      >
+        <v-icon>mdi-reload</v-icon>
+      </v-btn>
+
+      <v-btn
+          icon
           v-if="isLogin"
           v-on:click="logoutDialog=true"
       >
@@ -97,14 +104,13 @@
 
           <app-live
               v-bind:video-src="liveUrl"
-              v-if="isLogin"
-              title="我的直播间"
+              title="服务器广播频道app"
           />
 
           <app-live
-              v-bind:video-src="liveUrl"
-              v-else
-              title="服务器公共频道app"
+              v-for="item in allUser"
+              v-bind:video-src="item[1]"
+              v-bind:title="item[0]"
           />
 
 
@@ -167,7 +173,8 @@ export default {
       registerDialog: false,
       cordova_ready: false,
       token: 'XeuhrQVN2NhadNFcmwClVXrB0pEGkIuH',//为了暂时的保护服务器的接口而设置的，token不对服务器返回403
-      snackConf: {timeout: 3000, txt: '', snackbar: false}
+      snackConf: {timeout: 5000, txt: '', snackbar: false},
+      allUser: {}
     }
   },
 
@@ -247,7 +254,7 @@ export default {
           .then(function (res)
           {
             //handle success
-            that.showSnackBar(res.data);
+            that.showSnackBar(res.data)
           })
           .catch(function (err)
           {
@@ -255,6 +262,24 @@ export default {
             console.log(err);
             that.showSnackBar(String(err))
           })
+    },
+
+    getUser: function ()
+    {
+      let that = this
+      axios.get(this.getUserUrl)
+          .then(function (res)
+          {
+            that.allUser = res.data
+
+            that.showSnackBar(res.data)
+          })
+          .catch(function (err)
+          {
+            console.log(err);
+            that.showSnackBar(String(err))
+          })
+
     },
 
     logout: function ()
@@ -269,6 +294,7 @@ export default {
   mounted: function ()
   {
     document.addEventListener("deviceready", this.onDeviceReady, false);
+
   },
 
   computed: {
@@ -287,6 +313,10 @@ export default {
     signupUrl: function ()
     {
       return 'https://' + this.ip + '/app/user/signup.php'
+    },
+    getUserUrl: function ()
+    {
+      return 'https://' + this.ip + '/app/user/account.php'
     }
 
   },
