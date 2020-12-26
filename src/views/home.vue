@@ -76,7 +76,6 @@
         shrink-on-scroll
         fade-img-on-scroll
         src="https://picsum.photos/1920/1080?random"
-        scroll-threshold="200"
         app
     >
 
@@ -93,24 +92,17 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
+      <v-btn icon v-on:click="dialog = true">
+        <v-icon>mdi-account</v-icon>
       </v-btn>
 
-      <v-btn icon>
-        <v-icon>mdi-heart</v-icon>
-      </v-btn>
-
-      <v-btn icon>
-        <v-icon>mdi-dots-vertical</v-icon>
-      </v-btn>
     </v-app-bar>
 
     <v-main>
       <v-container fluid>
         <v-row dense>
 
-          <app-live video-src="https://my-iot.site/app/live/test.m3u8"/>
+          <app-live video-src="https://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8"/>
 
           <app-live video-src="https://my-iot.site/app/live/app.m3u8"/>
 
@@ -143,12 +135,6 @@ export default {
         {title: '仪表盘', icon: 'mdi-view-dashboard', href: ''},
         {title: '相机', icon: 'mdi-camera', href: ''},
         {title: '退出', icon: 'mdi-logout', href: ''},
-      ],
-      icons: [
-        'mdi-facebook',
-        'mdi-twitter',
-        'mdi-linkedin',
-        'mdi-instagram',
       ],
       drawer: null,
       dialog: false,

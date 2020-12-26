@@ -1,13 +1,14 @@
 <template>
-  <v-col>
+  <v-col cols="12">
     <v-card>
       <video
           ref="VideoPlayer"
-          class="video-js"
+          class="video-js vjs-big-play-centered"
       />
-      <v-card-title>app直播源</v-card-title>
 
       <v-card-actions>
+        <v-card-title>app直播源</v-card-title>
+
         <v-spacer></v-spacer>
 
         <v-btn icon>
@@ -18,8 +19,8 @@
           <v-icon>mdi-bookmark</v-icon>
         </v-btn>
 
-        <v-btn icon>
-          <v-icon>mdi-share-variant</v-icon>
+        <v-btn icon v-on:click="videoReload">
+          <v-icon>mdi-reload</v-icon>
         </v-btn>
       </v-card-actions>
 
@@ -28,8 +29,6 @@
 </template>
 
 <script>
-import videojs from 'video.js';
-
 export default {
   name: "VideoPlayer",
   components: {},
@@ -41,17 +40,30 @@ export default {
       videoOptions: {
         fluid: true,
         autoplay: false,
+        muted: false,
         controls: true,
         preload: 'auto',
+        aspectRatio: "16:9",
+        playbackRates: [0.5, 1, 1.5, 2],
+        language: 'zh-CN',
+        // poster: 'https://picsum.photos/1920/1080?random',
         sources: [
           {
             src: this.videoSrc,
-            //src: "http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8",
-            type: "application/x-mpegURL"
+            type: "application/x-mpegURL",
           }
         ]
       }
 
+    }
+  },
+  methods: {
+    videoReload: function ()
+    {
+      this.player.reset()
+      this.player.src(this.videoSrc)
+      this.player.load(this.videoSrc)
+      this.player.play()
     }
   },
   mounted()

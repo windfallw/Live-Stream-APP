@@ -8,52 +8,28 @@
     <v-card>
 
       <v-card-title>
-        <span class="headline">User Profile</span>
+        <span class="headline">登录</span>
       </v-card-title>
+
       <v-card-text>
         <v-container>
           <v-row>
-
-            <v-col
-                cols="12"
-                sm="6"
-                md="4"
-            >
+            <v-col cols="12">
               <v-text-field
-                  label="Legal middle name"
-                  hint="example of helper text only on focus"
-              ></v-text-field>
-            </v-col>
-            <v-col
-                cols="12"
-                sm="6"
-                md="4"
-            >
-              <v-text-field
-                  label="Legal last name*"
-                  hint="example of persistent helper text"
-                  persistent-hint
+                  label="邮箱*"
                   required
               ></v-text-field>
             </v-col>
             <v-col cols="12">
               <v-text-field
-                  label="Email*"
-                  required
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12">
-              <v-text-field
-                  label="Password*"
+                  label="密码*"
                   type="password"
                   required
               ></v-text-field>
             </v-col>
-
-
           </v-row>
         </v-container>
-        <small>*indicates required field</small>
+        <small>*为必填项</small>
       </v-card-text>
 
       <v-card-actions>
@@ -63,14 +39,14 @@
             text
             v-on:click="$emit('login-dialog',false)"
         >
-          Close
+          关闭
         </v-btn>
         <v-btn
             color="blue darken-1"
             text
             v-on:click="$emit('login-dialog',false)"
         >
-          Save
+          登录
         </v-btn>
       </v-card-actions>
 
