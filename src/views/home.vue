@@ -24,48 +24,11 @@
 
       <v-divider></v-divider>
 
-      <v-list dense nav>
-
-        <v-list-item>
-          <v-switch
-              v-model="$vuetify.theme.dark"
-              inset
-              label="深色模式"
-          ></v-switch>
-        </v-list-item>
-
-        <v-list-item v-on:click="dialog = true" link>
-          <v-list-item-icon>
-            <v-icon>mdi-login</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>登录</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-
-        <v-list-item link v-on:click="display">
-          <v-list-item-icon>
-            <v-icon>mdi-video-wireless-outline</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>发起直播</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-
-        <v-list-item
-            v-for="item in items"
-            :key="item.title"
-            link
-        >
-          <v-list-item-icon>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-
-      </v-list>
+      <app-list
+          v-bind:dialog="dialog"
+          v-bind:display="display"
+          v-on:login-dialog="dialog=$event"
+      />
 
     </v-navigation-drawer>
 
@@ -124,6 +87,7 @@
 import footer from "@/components/footer";
 import login from '@/components/login';
 import video from "@/components/video";
+import list from "@/components/list";
 // import axios from 'axios'
 
 export default {
@@ -145,7 +109,8 @@ export default {
   components: {
     'app-login': login,
     'app-footer': footer,
-    'app-live': video
+    'app-live': video,
+    'app-list': list
   },
 
   methods: {

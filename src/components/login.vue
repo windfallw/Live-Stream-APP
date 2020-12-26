@@ -59,7 +59,10 @@
 // import axios from 'axios'
 export default {
   props: ['dialog'],
-  data: () => ({}),
+  data: function ()
+  {
+    return {}
+  },
   mounted: function ()
   {
   },
