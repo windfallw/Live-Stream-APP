@@ -52,7 +52,7 @@
               color="blue darken-1"
               text
               v-bind:disabled="!valid"
-              v-on:click="$emit('register',[name,password]); $emit('register-dialog',false);"
+              v-on:click="signUp"
           >
             注册
           </v-btn>
@@ -86,9 +86,16 @@ export default {
   {
   },
   methods: {
+    signUp()
+    {
+      this.$emit('register', [this.name, this.password])
+      this.$emit('register-dialog', false)
+      this.reset()
+    },
     reset()
     {
-      this.$refs.form.reset()
+      this.name = ''
+      this.password = ''
     },
   }
 }

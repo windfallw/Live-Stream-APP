@@ -53,7 +53,7 @@
               color="blue darken-1"
               text
               v-bind:disabled="!valid"
-              v-on:click="$emit('login',[name,password]);$emit('login-dialog',false)"
+              v-on:click="login"
           >
             登录
           </v-btn>
@@ -88,9 +88,16 @@ export default {
 
   },
   methods: {
+    login()
+    {
+      this.$emit('login', [this.name, this.password])
+      this.$emit('login-dialog', false)
+      this.reset()
+    },
     reset()
     {
-      this.$refs.form.reset()
+      this.name = ''
+      this.password = ''
     },
   }
 }
