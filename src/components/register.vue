@@ -8,7 +8,7 @@
     <v-card>
 
       <v-card-title>
-        <span class="headline">登录</span>
+        <span class="headline">注册</span>
       </v-card-title>
 
       <v-card-text>
@@ -37,15 +37,16 @@
         <v-btn
             color="blue darken-1"
             text
-            v-on:click="$emit('login-dialog',false)"
+            v-on:click="$emit('register-dialog',false)"
         >
           取消
         </v-btn>
         <v-btn
             color="blue darken-1"
             text
+
         >
-          登录
+          注册
         </v-btn>
       </v-card-actions>
 

@@ -5,17 +5,17 @@
 
       <v-list-item>
 
-        <v-list-item-avatar color="accent" v-on:click="dialog = true">
-          <span class="white--text headline">xx</span>
+        <v-list-item-avatar color="accent" v-on:click="loginDialog = true">
+          <span class="white--text headline"></span>
         </v-list-item-avatar>
 
         <v-list-item-content>
           <v-list-item-title class="title">
-            admin
+            未登录
           </v-list-item-title>
 
           <v-list-item-subtitle>
-            support@admin.com
+
           </v-list-item-subtitle>
 
         </v-list-item-content>
@@ -25,9 +25,9 @@
       <v-divider></v-divider>
 
       <app-list
-          v-bind:dialog="dialog"
           v-bind:display="display"
-          v-on:login-dialog="dialog=$event"
+          v-on:login-dialog="loginDialog=$event"
+          v-on:register-dialog="registerDialog=$event"
       />
 
     </v-navigation-drawer>
@@ -55,7 +55,7 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn icon v-on:click="dialog = true">
+      <v-btn icon v-on:click="loginDialog = true">
         <v-icon>mdi-account</v-icon>
       </v-btn>
 
@@ -76,18 +76,25 @@
     <app-footer/>
 
     <app-login
-        v-bind:dialog="dialog"
-        v-on:login-dialog="dialog=$event"
+        v-bind:dialog="loginDialog"
+        v-on:login-dialog="loginDialog=$event"
+    />
+
+    <app-register
+        v-bind:dialog="registerDialog"
+        v-on:register-dialog="registerDialog=$event"
     />
 
   </v-app>
 </template>
 
 <script>
-import footer from "@/components/footer";
 import login from '@/components/login';
+import register from "@/components/register";
+import footer from "@/components/footer";
 import video from "@/components/video";
 import list from "@/components/list";
+
 // import axios from 'axios'
 
 export default {
@@ -95,22 +102,19 @@ export default {
   data: function ()
   {
     return {
-      items: [
-        {title: '仪表盘', icon: 'mdi-view-dashboard', href: ''},
-        {title: '相机', icon: 'mdi-camera', href: ''},
-        {title: '退出', icon: 'mdi-logout', href: ''},
-      ],
       drawer: null,
-      dialog: false,
-      cordova_ready: false
+      loginDialog: false,
+      registerDialog: false,
+      cordova_ready: false,
     }
   },
 
   components: {
     'app-login': login,
+    'app-register': register,
     'app-footer': footer,
     'app-live': video,
-    'app-list': list
+    'app-list': list,
   },
 
   methods: {

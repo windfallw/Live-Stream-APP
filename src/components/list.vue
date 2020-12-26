@@ -23,6 +23,18 @@
     </v-list-item>
 
     <v-list-item
+        v-on:click="$emit('register-dialog',true)"
+        link
+    >
+      <v-list-item-icon>
+        <v-icon>mdi-account-plus</v-icon>
+      </v-list-item-icon>
+      <v-list-item-content>
+        <v-list-item-title>注册</v-list-item-title>
+      </v-list-item-content>
+    </v-list-item>
+
+    <v-list-item
         link v-on:click="display"
     >
       <v-list-item-icon>
@@ -33,14 +45,6 @@
       </v-list-item-content>
     </v-list-item>
 
-    <v-list-item link>
-      <v-list-item-icon>
-        <v-icon>mdi-view-dashboard</v-icon>
-      </v-list-item-icon>
-      <v-list-item-content>
-        <v-list-item-title>仪表盘</v-list-item-title>
-      </v-list-item-content>
-    </v-list-item>
 
     <v-list-item link>
       <v-list-item-icon>
@@ -51,7 +55,7 @@
       </v-list-item-content>
     </v-list-item>
 
-    <v-list-item link>
+    <v-list-item link v-on:click="exit">
       <v-list-item-icon>
         <v-icon>mdi-logout</v-icon>
       </v-list-item-icon>
@@ -66,11 +70,19 @@
 
 <script>
 export default {
-  props: ['dialog', 'display'],
+  props: ['display'],
   data: function ()
   {
     return {}
   },
+  methods: {
+    exit: function ()
+    {
+      if (this.cordova_ready)
+        navigator.app.exitApp();
+      else console.log('当前设备不支持')
+    }
+  }
 }
 </script>
 
