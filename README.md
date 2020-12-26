@@ -1,24 +1,37 @@
-# app
+# LiveStream直播平台
 
-## Project setup
+## 安装依赖
+
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### 运行Vue ui
+
 ```
-npm run serve
+vue ui
 ```
 
-### Compiles and minifies for production
+### 选择任务里的cordova-build-only-www-android将项目编译到Cordova的www目录
+
 ```
-npm run build
+cross-env CORDOVA_PLATFORM=android vue-cli-service cordova-build-only-www-android
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
+### `cd /src-cordova`进入Cordova根目录
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+1. 编译安装apk
+
+`cordova build android --release`
+
+2. 调试
+
+    - 首先需要adb连接到安卓手机有线无线都可以，举个无线调试的例子
+    - `adb connect 192.168.31.130`
+    - `cordova run android --target=192.168.31.130:5555`
+
+### 手机调试加自动编译,选择vue ui里的cordova-serve-android运行或执行命令
+
+```
+cross-env CORDOVA_PLATFORM=android vue-cli-service cordova-serve-android
+```
