@@ -1,5 +1,5 @@
 <template>
-  <v-footer padless>
+  <v-footer padless app>
     <v-col
         class="lighten-2 text-center py-0"
         cols="12"

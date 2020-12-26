@@ -1,75 +1,72 @@
 <template>
+  <v-col>
+    <v-card>
+      <video
+          ref="VideoPlayer"
+          class="video-js"
+      />
+      <v-card-title>app直播源</v-card-title>
 
-  <div class="player">
-    <h3>Using Html5 to play m3u8 media file</h3>
-    <video-player
-        ref="videoPlayer"
-        class="vjs-custom-skin"
-        :options="playerOptions"
-        @play="onPlayerPlay($event)"
-        @ready="onPlayerReady($event)"
-    >
+      <v-card-actions>
+        <v-spacer></v-spacer>
 
-    </video-player>
-  </div>
+        <v-btn icon>
+          <v-icon>mdi-heart</v-icon>
+        </v-btn>
 
+        <v-btn icon>
+          <v-icon>mdi-bookmark</v-icon>
+        </v-btn>
 
+        <v-btn icon>
+          <v-icon>mdi-share-variant</v-icon>
+        </v-btn>
+      </v-card-actions>
+
+    </v-card>
+  </v-col>
 </template>
 
 <script>
-import {videoPlayer} from 'vue-videojs7'
+import videojs from 'video.js';
 
 export default {
-  components: {
-    videoPlayer
-  },
+  name: "VideoPlayer",
+  components: {},
+  props: ['videoSrc'],
   data()
   {
     return {
-      playerOptions: {
-        autoplay: true,
+      player: null,
+      videoOptions: {
+        fluid: true,
+        autoplay: false,
         controls: true,
-        controlBar: {
-          timeDivider: false,
-          durationDisplay: false
-        },
-        poster: 'https://picsum.photos/1920/1080?random"'
+        preload: 'auto',
+        sources: [
+          {
+            src: this.videoSrc,
+            //src: "http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8",
+            type: "application/x-mpegURL"
+          }
+        ]
       }
-    }
-  },
-  computed: {
-    player()
-    {
-      return this.$refs.videoPlayer.player
-    }
-  },
-  methods: {
-    onPlayerPlay(player)
-    {
-      console.log('player play!', player)
-    },
-    onPlayerReady(player)
-    {
-      console.log('player ready!', player)
-      this.player.play()
-    },
-    playVideo: function (source)
-    {
-      const video = {
-        withCredentials: false,
-        type: 'application/x-mpegurl',
-        src: source
-      }
-      this.player.reset() // in IE11 (mode IE10) direct usage of src() when <src> is already set, generated errors,
-      this.player.src(video)
-      this.player.load()
-      this.player.play()
+
     }
   },
   mounted()
   {
-    const src = 'https://my-iot.site/app/live/app.m3u8'
-    this.playVideo(src)
+    this.player = videojs(this.$refs.VideoPlayer, this.videoOptions, function onPlayerReady()
+    {
+      console.log('onPlayerReady', this);
+    })
+  },
+  beforeDestroy()
+  {
+    if (this.player)
+    {
+      this.player.dispose()
+    }
   }
 }
 </script>

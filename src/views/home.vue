@@ -106,8 +106,16 @@
       </v-btn>
     </v-app-bar>
 
-    <v-main class="d-flex align-content-center flex-wrap-reverse">
-      <app-live/>
+    <v-main>
+      <v-container fluid>
+        <v-row dense>
+
+          <app-live video-src="https://my-iot.site/app/live/test.m3u8"/>
+
+          <app-live video-src="https://my-iot.site/app/live/app.m3u8"/>
+
+        </v-row>
+      </v-container>
     </v-main>
 
     <app-footer/>
