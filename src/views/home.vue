@@ -26,6 +26,7 @@
 
       <app-list
           v-bind:display="display"
+          v-bind:cordova_ready="cordova_ready"
           v-on:login-dialog="loginDialog=$event"
           v-on:register-dialog="registerDialog=$event"
       />
@@ -67,7 +68,7 @@
 
           <app-live video-src="https://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8"/>
 
-          <app-live video-src="https://my-iot.site/app/live/app.m3u8"/>
+          <app-live video-src="https://my-iot.site/app/live/test.m3u8"/>
 
         </v-row>
       </v-container>
@@ -94,15 +95,17 @@ import register from "@/components/register";
 import footer from "@/components/footer";
 import video from "@/components/video";
 import list from "@/components/list";
-
-// import axios from 'axios'
+import axios from 'axios'
 
 export default {
   name: 'home',
   data: function ()
   {
     return {
+      ip: 'my-iot.site',
+      user: 'unsignin',
       drawer: null,
+      isLogin: false,
       loginDialog: false,
       registerDialog: false,
       cordova_ready: false,
@@ -129,10 +132,25 @@ export default {
       this.cordova_ready = true
       console.log(navigator.camera)
       console.log(videoStreamer)
+    },
+    signIn: function ()
+    {
+
+
+    }
+  },
+  computed: {
+    server: function ()
+    {
+      return 'https://' + this.ip
+    },
+    liveUrl: function ()
+    {
+      return this.server + '/app/live/' + this.user
     }
 
-  },
 
+  },
   mounted: function ()
   {
     document.addEventListener("deviceready", this.onDeviceReady, false);

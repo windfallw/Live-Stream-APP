@@ -70,7 +70,7 @@
 
 <script>
 export default {
-  props: ['display'],
+  props: ['display', 'cordova_ready'],
   data: function ()
   {
     return {}
