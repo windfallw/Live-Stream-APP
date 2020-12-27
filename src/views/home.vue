@@ -103,7 +103,7 @@
           />
 
           <app-live
-              v-bind:video-src="liveUrl"
+              video-src="publicUrl"
               title="服务器广播频道app"
           />
 
@@ -326,6 +326,10 @@ export default {
     liveUrl: function ()
     {
       return 'https://' + this.ip + '/app/live/' + this.user + '.m3u8'
+    },
+    publicUrl: function ()
+    {
+      return 'https://' + this.ip + '/app/live/' + 'app.m3u8'
     },
     loginUrl: function ()
     {
