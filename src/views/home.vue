@@ -225,9 +225,12 @@ export default {
           .then(function (res)
           {
             //handle success
+            if (res.data !== '密码错误')
+            {
+              that.isLogin = true
+              that.user = arg[0]
+            }
             that.showSnackBar(res.data);
-            that.isLogin = true
-            that.user = arg[0]
           })
           .catch(function (err)
           {
