@@ -9,7 +9,7 @@
           <span
               class="white--text headline"
               v-if="isLogin"
-          >{{ user }}}</span>
+          >{{ user }}</span>
         </v-list-item-avatar>
 
         <v-list-item-content>
