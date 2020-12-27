@@ -103,7 +103,7 @@
           />
 
           <app-live
-              video-src="publicUrl"
+              v-bind:video-src="publicUrl"
               title="服务器广播频道app"
           />
 
