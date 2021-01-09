@@ -161,7 +161,7 @@ export default {
   data: function ()
   {
     return {
-      ip: 'my-iot.site',
+      ip: '[here is your server domain or ip]',
       user: 'app',
       drawer: null,
       isLogin: false,
